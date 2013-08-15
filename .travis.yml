@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - "1.9.3"
+# uncomment this line if your project needs to run something other than `rake`:
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec
+before_script:
+  - psql -c "CREATE USER adquisicion_prefectura createdb;" -U postgres
+  - psql -c 'create database adquisicion_prefectura_test owner adquisicion_prefectura' -U postgres
