@@ -1,0 +1,4 @@
+configuraciones:
+  urlws: "http://200.41.238.203:8899/reports.asmx?WSDL"
+  http.read_timeout: 500
+  http.open_timeout: 500

@@ -11,7 +11,7 @@ gem 'rails-i18n'
 gem 'responders'
 gem 'hirb-unicode'
 gem 'travis-lint'
-gem 'savon', '~> 2.3.0'
+gem 'savon', '0.9.9'
 
 group :development do
   gem 'htmlbeautifier'
@@ -29,6 +29,8 @@ group :test do
   gem 'database_cleaner'
   gem 'sqlite3', '1.3.6'
   gem 'simplecov', :require => false
+  gem 'vcr'
+  gem 'fakeweb'
 end
 
 # Gems used only for assets and not required
