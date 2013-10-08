@@ -1,6 +1,7 @@
 AdquisicionPrefectura::Application.routes.draw do
 
 get "posiciones/index"
+post "posiciones/create"
 
 # resources :posiciones, :only => :index
 

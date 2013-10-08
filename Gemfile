@@ -31,6 +31,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'vcr'
   gem 'fakeweb'
+  gem 'webmock', '1.8.0'
 end
 
 # Gems used only for assets and not required

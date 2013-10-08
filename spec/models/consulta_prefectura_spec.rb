@@ -20,9 +20,20 @@ describe ConsultaPrefectura do
     end
   end
 
-  it "obtener los datos del ws de prefectura" do
-    VCR.use_cassette "prefectura" do
-      @consulta.obtener_registros.should match("FH_INFO")
+  describe "flujos por excepciones" do
+    before do
+      @config = YAML.load_file(Rails.root + 'config/conexion_ws.yml')
+      @posiciones = Factory(:posiciones, :fecha => @fecha)
+    end
+
+    it "por time-out" do
+      stub_request(:any, @config["configuraciones"]["urlws"]).to_timeout
+      @consulta.obtener_registros.should == @posiciones.listado
+    end
+
+    it "por error en el servicio" do
+      stub_request(:any, @config["configuraciones"]["urlws"]).to_raise(Savon::Error)
+      @consulta.obtener_registros.should == @posiciones.listado
     end
   end
 

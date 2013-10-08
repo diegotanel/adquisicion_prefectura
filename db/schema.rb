@@ -11,6 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20131007204141) do
+
+  create_table "posiciones", :force => true do |t|
+    t.string   "fecha",      :null => false
+    t.text     "listado",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posiciones", ["fecha"], :name => "index_posiciones_on_fecha"
 
 end
