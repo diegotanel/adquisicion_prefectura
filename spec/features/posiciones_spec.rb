@@ -8,9 +8,12 @@ describe "Posiciones" do
       VCR.use_cassette "prefectura_15-09-13" do
         @fecha = '15-09-13'
         @reportName = 'Hidrovia_PZRP'
-        get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
-        response.status.should be(200)
-        response.should contain("15/09/2013")
+        page.driver.get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
+        expect(page.status_code).to be(200)
+        expect(page.body).to have_content("15/09/2013")
+        # xml = Nokogiri::XML(page.body)
+        # xml.css("//FH_INFO")[1].text.should == "15/09/2013"
+        # expect(xml).to have_content("15/09/2013")
       end
     end
 
@@ -20,9 +23,9 @@ describe "Posiciones" do
       @fecha = '17-09-13'
       @reportName = 'Hidrovia_PZRP'
       @posiciones = Factory(:posiciones)
-      get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
-      response.status.should be(200)
-      response.should contain(@posiciones.listado)
+      page.driver.get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
+      expect(page.status_code).to be(200)
+      expect(page.body).to have_content(@posiciones.listado)
     end
 
     it "obtener el listado de posiciones almacenado durante distintos días" do
@@ -32,9 +35,9 @@ describe "Posiciones" do
       @reportName = 'Hidrovia_PZRP'
       Factory(:posiciones)
       @posiciones = Factory(:posiciones, :fecha => @fecha, :listado => "14/09/2013")
-      get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
-      response.status.should be(200)
-      response.should contain(@posiciones.listado)
+      page.driver.get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
+      expect(page.status_code).to be(200)
+      expect(page.body).to have_content(@posiciones.listado)
     end
 
     it "obtener el listado de posiciones almacenado el mismo día y distinta horas" do
@@ -45,9 +48,9 @@ describe "Posiciones" do
       Factory(:posiciones, :fecha => @fecha, :listado => "listado1", :created_at => 3.hour.ago)
       Factory(:posiciones, :fecha => @fecha, :listado => "listado2", :created_at => 2.hour.ago)
       Factory(:posiciones, :fecha => @fecha, :listado => "listado3", :created_at => 1.hour.ago)
-      get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
-      response.status.should be(200)
-      response.should contain("listado3")
+      page.driver.get '/posiciones/index.xml', params = { :fecha => @fecha, :reportName => @reportName }
+      expect(page.status_code).to be(200)
+      expect(page.body).to have_content('listado3')
     end
   end
 
@@ -57,10 +60,10 @@ describe "Posiciones" do
         DateTime.stub!(:now).and_return(DateTime.new(2013, 9, 15))
         @fecha = '15-09-13'
         @reportName = 'Hidrovia_PZRP'
-        post '/posiciones/create', params = { :fecha => @fecha, :reportName => @reportName }
+        page.driver.post '/posiciones/create', params = { :fecha => @fecha, :reportName => @reportName }
         @pos = Posiciones.first
-        @pos.fecha.should eq("15-09-13")
-        @pos.listado.should contain("15/09/2013")
+        expect(@pos.fecha).to eq("15-09-13")
+        expect(@pos.listado).to have_content("15/09/2013")
       end
     end
 
