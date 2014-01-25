@@ -1,0 +1,30 @@
+<h1>Posiciones</h1>
+
+<%= button_tag(type: 'button', id: 'seleccionar_todos', name: 'seleccionar_todos') do
+  content_tag(:strong, 'Seleccionar todos')
+end %>
+
+<%= button_tag(type: 'button', id: 'deseleccionar_todos', name: 'deseleccionar_todos') do
+  content_tag(:strong, 'Deseleccionar todos')
+end %>
+
+<%= form_tag eliminar_multiple_posiciones_index_path, :method => :delete do %>
+<table>
+  <tr>
+    <th></th>
+    <th>Fecha de creación</th>
+    <th>Fecha del reporte</th>
+  </tr>
+
+<% @posiciones.each do |posiciones| %>
+  <tr>
+    <td><%= check_box_tag "posiciones_ids[]", posiciones.id, false, :id => dom_id(posiciones) %></td>
+    <td><%= I18n.l(posiciones.created_at) %></td>
+    <td><%= posiciones.fecha %></td>
+    <td><%= link_to "Descargar", descargar_posiciones_path(posiciones), :id => "descargar_#{posiciones.id}" %></td>
+  </tr>
+<% end %>
+</table>
+<%= submit_tag "Eliminar registros" %>
+<br />
+<% end %>

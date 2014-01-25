@@ -13,3 +13,11 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+
+
+
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'posiciones', 'posiciones'
+  inflect.irregular 'posiciones_proxy', 'posiciones_proxy'
+end

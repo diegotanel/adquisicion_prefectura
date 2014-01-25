@@ -1,11 +1,7 @@
 class PosicionesController < ApplicationController
+
   def index
-    @consultar = ConsultaPrefectura.new(params).obtener_registros
-    respond_to do |format|
-      # format.html # index.html.erb
-      format.xml  { render xml: @consultar}
-      # format.json { render json: @users}
-    end
+    @posiciones = Posiciones.all
   end
 
   def create
@@ -18,4 +14,15 @@ class PosicionesController < ApplicationController
       # format.json { render json: @pos }
     end
   end
+
+  def descargar
+    @posiciones = Posiciones.find(params[:id])
+    send_data @posiciones.listado, :filename => 'posiciones.xml', :type=>"application/xml", :disposition => 'attachment'
+  end
+
+  def eliminar_multiple
+    Posiciones.delete_all(:id => params[:posiciones_ids])
+    redirect_to posiciones_index_path
+  end
+
 end

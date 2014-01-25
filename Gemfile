@@ -33,6 +33,7 @@ group :test do
   gem 'vcr'
   gem 'fakeweb'
   gem 'webmock', '1.8.0'
+  gem 'database_cleaner'
 end
 
 # Gems used only for assets and not required

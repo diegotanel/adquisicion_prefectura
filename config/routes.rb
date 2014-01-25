@@ -1,9 +1,19 @@
 AdquisicionPrefectura::Application.routes.draw do
 
-get "posiciones/index"
-post "posiciones/create"
+  # get "posiciones_proxy/index", :defaults => {:format => :xml}
 
-# resources :posiciones, :only => :index
+  post "posiciones/create"
+
+  resources :posiciones_proxy, :defaults => {:format => :xml}, :only => :index
+
+  resources :posiciones, :only => [:index] do
+    member do
+      get :descargar
+    end
+    collection do
+      delete :eliminar_multiple
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
