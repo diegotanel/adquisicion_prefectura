@@ -1,12 +1,14 @@
 <h1>Posiciones</h1>
 
-<%= button_tag(type: 'button', id: 'seleccionar_todos', name: 'seleccionar_todos') do
+<%= button_tag(type: 'button', id: 'seleccionar_todos', name: 'seleccionar_todos', :class => "[tiny small large radius round] button [secondary alert success]") do
   content_tag(:strong, 'Seleccionar todos')
 end %>
 
-<%= button_tag(type: 'button', id: 'deseleccionar_todos', name: 'deseleccionar_todos') do
+<%= button_tag(type: 'button', id: 'deseleccionar_todos', name: 'deseleccionar_todos', :class => "[tiny small large radius round] button [secondary alert success]") do
   content_tag(:strong, 'Deseleccionar todos')
 end %>
+
+<br />
 
 <%= form_tag eliminar_multiple_posiciones_index_path, :method => :delete do %>
 <table>
@@ -25,6 +27,8 @@ end %>
   </tr>
 <% end %>
 </table>
-<%= submit_tag "Eliminar registros" %>
+
+  <%= submit_tag "Eliminar registros", :class => "small radius success button" %>
+
 <br />
 <% end %>

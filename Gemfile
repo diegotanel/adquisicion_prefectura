@@ -12,6 +12,8 @@ gem 'responders'
 gem 'hirb-unicode'
 gem 'travis-lint'
 gem 'savon', '0.9.9'
+gem 'foundation-rails'
+gem 'foundation_rails_helper'
 
 group :development do
   gem 'htmlbeautifier'
