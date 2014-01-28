@@ -21,39 +21,44 @@ describe "PosicionesProxy" do
   end
 
   describe "posiciones almacenadas" do
-    before do
-      config = YAML.load_file(Rails.root + 'config/conexion_ws.yml')
-      stub_request(:any, config["configuraciones"]["urlws"]).to_timeout
-    end
+    context "obtener el reporte" do
+      before do
+        config = YAML.load_file(Rails.root + 'config/conexion_ws.yml')
+        stub_request(:any, config["configuraciones"]["urlws"]).to_timeout
+      end
 
-    it "obtener el listado de posiciones almacenado" do
-      fecha = '15-09-13'
-      reportName = 'Hidrovia_PZRP'
-      @posiciones = Factory(:posiciones)
-      get(fecha, reportName)
-      expect(page.status_code).to be(200)
-      expect(page.body).to have_content(@posiciones.listado)
-    end
+      it "de posiciones almacenado" do
+        fecha = '15-09-13'
+        reportName = 'Hidrovia_PZRP'
+        @posiciones = Factory(:posiciones)
+        get(fecha, reportName)
+        expect(page.status_code).to be(200)
+        expect(page.body).to have_content(@posiciones.listado)
+      end
 
-    it "obtener el listado de posiciones almacenado durante distintos días" do
-      Factory(:posiciones)
-      fecha = '17-09-13'
-      reportName = 'Hidrovia_PZRP'
-      @posiciones = Factory(:posiciones, :fecha => fecha, :listado => "14/09/2013")
-      get(fecha, reportName)
-      expect(page.status_code).to be(200)
-      expect(page.body).to have_content(@posiciones.listado)
-    end
+      it "de una posición específica, si bien hay reportes de distintos días" do
+        Factory(:posiciones)
+        fecha = '17-09-13'
+        reportName = 'Hidrovia_PZRP'
+        @posiciones = Factory(:posiciones, :fecha => fecha, :listado => "14/09/2013")
+        get(fecha, reportName)
+        expect(page.status_code).to be(200)
+        expect(page.body).to have_content(@posiciones.listado)
+      end
 
-    it "obtener el listado de posiciones almacenado el mismo día y distinta horas" do
-      fecha = '15-09-13'
-      reportName = 'Hidrovia_PZRP'
-      Factory(:posiciones, :fecha => fecha, :listado => "listado1", :created_at => 3.hour.ago)
-      Factory(:posiciones, :fecha => fecha, :listado => "listado2", :created_at => 2.hour.ago)
-      Factory(:posiciones, :fecha => fecha, :listado => "listado3", :created_at => 1.hour.ago)
-      get(fecha, reportName)
-      expect(page.status_code).to be(200)
-      expect(page.body).to have_content('listado3')
+      it "de posiciones específica, el mismo día y distinta horas" do
+        Timecop.freeze(DateTime.new(2013,9,15,15,00))
+        fecha = '15-09-13'
+        reportName = 'Hidrovia_PZRP'
+        @pos1 = Factory(:posiciones, :fecha => fecha, :listado => "listado1", :created_at => 3.hour.ago)
+        @pos2 = Factory(:posiciones, :fecha => fecha, :listado => "listado2", :created_at => 2.hour.ago)
+        @pos3 = Factory(:posiciones, :fecha => fecha, :listado => "listado3", :created_at => 1.hour.ago)
+        get(fecha, reportName)
+        expect(page.status_code).to be(200)
+        expect(page.body).to_not have_content('listado1')
+        expect(page.body).to_not have_content('listado2')
+        expect(page.body).to have_content('listado3')
+      end
     end
   end
 

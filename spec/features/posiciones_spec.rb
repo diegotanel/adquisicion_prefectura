@@ -3,9 +3,6 @@
 require 'spec_helper'
 
 describe "Posiciones" do
-  before do
-    DatabaseCleaner.clean
-  end
 
   def get(fecha, reportName)
     page.driver.get posiciones_proxy_index_path, params = { :fecha => fecha, :reportName => reportName }

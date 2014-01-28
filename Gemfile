@@ -36,6 +36,7 @@ group :test do
   gem 'fakeweb'
   gem 'webmock', '1.8.0'
   gem 'database_cleaner'
+  gem 'timecop'
 end
 
 # Gems used only for assets and not required
