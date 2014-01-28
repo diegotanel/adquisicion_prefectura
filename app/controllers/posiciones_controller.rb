@@ -1,7 +1,8 @@
 class PosicionesController < ApplicationController
 
   def index
-    @posiciones = Posiciones.all
+    @posiciones = []
+    Posiciones.select("id,fecha,created_at").find_each(:batch_size => 500) {|p| @posiciones << p }
   end
 
   def create
