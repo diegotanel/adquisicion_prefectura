@@ -9,6 +9,7 @@ AdquisicionPrefectura::Application.routes.draw do
   resources :posiciones, :only => [:index] do
     member do
       get :descargar
+      get :visualizar
     end
     collection do
       delete :eliminar_multiple

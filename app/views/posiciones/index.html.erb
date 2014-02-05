@@ -23,6 +23,7 @@ end %>
     <td><%= check_box_tag "posiciones_ids[]", posiciones.id, false, :id => dom_id(posiciones) %></td>
     <td><%= I18n.l(posiciones.created_at) %></td>
     <td><%= posiciones.fecha %></td>
+    <td><%= link_to "Visualizar", visualizar_posiciones_path(posiciones), :id => "visualizar_#{posiciones.id}" %></td>
     <td><%= link_to "Descargar", descargar_posiciones_path(posiciones), :id => "descargar_#{posiciones.id}" %></td>
   </tr>
 <% end %>

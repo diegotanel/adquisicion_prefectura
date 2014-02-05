@@ -26,4 +26,9 @@ class PosicionesController < ApplicationController
     redirect_to posiciones_index_path
   end
 
+  def visualizar
+    @posiciones = Posiciones.find(params[:id])
+    @listado = VisualizarService.new(@posiciones.listado).obtener_listado
+  end
+
 end

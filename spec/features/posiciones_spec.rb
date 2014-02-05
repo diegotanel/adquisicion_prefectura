@@ -23,6 +23,7 @@ describe "Posiciones" do
       visit posiciones_index_path
       expect(page.body).to have_content("15/09/2013 19:41")
       expect(page.body).to have_link("descargar_#{@posiciones.id}", :href => descargar_posiciones_path(@posiciones) ,:text => "Descargar")
+      expect(page.body).to have_link("visualizar_#{@posiciones.id}", :href => visualizar_posiciones_path(@posiciones) ,:text => "Visualizar")
     end
 
     it "descargar el reporte" do
@@ -117,6 +118,36 @@ describe "Posiciones" do
         # @pos = Posiciones.first
         # expect(@pos.fecha).to eq("15-09-13")
         # expect(@pos.listado).to have_content("15/09/2013")
+      end
+    end
+  end
+
+  describe "visualización de posiciones" do
+    it "verificar que esten todas las columnas" do
+      VCR.use_cassette "prefectura_15-09-13" do
+        @encabezados = ["Orden", "FH_INFO", "HS_INFO", "PT_INFO", "MATRICULA", "SDIST", "NRO_OMI", "IDEN", "PT_ORIG", "PT_DESTINO", "TIPO_MOV", "PT_FINAL", "EN_VIAJE", "NOMBRE", "UNIDAD", "KM", "CARGA", "OBSERVAC", "BAND", "ARQUEO_NETO", "CALADO_MAX", "CALADOR", "SERN", "TIPO_EVENTO", "COMENTARIO", "ID_VIAJE", "ID_ETAPA", "NRO_ETAPA", "ID_EVENTO", "REMOLCADA_POR", "ORIGEN", "DESTINO"]
+        @fecha = '15-09-13'
+        @reportName = 'Hidrovia_PZRP'
+        page.driver.post '/posiciones/create', params = { :fecha => @fecha, :reportName => @reportName }
+        visit posiciones_index_path
+        click_link "Visualizar"
+        @encabezados.map {|e|
+          expect(page.body).to have_content(e)
+        }
+      end
+    end
+
+    it "debe mostrar los valores en las columans" do
+      VCR.use_cassette "prefectura_15-09-13" do
+        @valores = ["0", "15/09/2013", "00:01:00", "PZRP", "01660", "LW2558", "EL COCO", "B50", "BAI", "BAI", "1", "Rio de la Plata", "PTO BSAS", "0", "ARGENTINA", "643", "4", "2.3", "PZRP", "Pase de Barco a Zona", "262026", "906091", "11", "3841593", "-", "KM 266 MI R PARANA", "BUENOS AIRES"]
+        @fecha = '15-09-13'
+        @reportName = 'Hidrovia_PZRP'
+        page.driver.post '/posiciones/create', params = { :fecha => @fecha, :reportName => @reportName }
+        visit posiciones_index_path
+        click_link "Visualizar"
+        @valores.map {|e|
+          expect(page.body).to have_content(e)
+        }
       end
     end
 

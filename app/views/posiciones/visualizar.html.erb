@@ -1,0 +1,79 @@
+<h1>Visualizar posiciones</h1>
+
+
+
+<table>
+  <tr>
+    <th>Orden</th>
+    <th>FH_INFO</th>
+    <th>HS_INFO</th>
+    <th>PT_INFO</th>
+    <th>MATRICULA</th>
+    <th>SDIST</th>
+    <th>NRO_OMI</th>
+    <th>IDEN</th>
+    <th>PT_ORIG</th>
+    <th>PT_DESTINO</th>
+    <th>TIPO_MOV</th>
+    <th>PT_FINAL</th>
+    <th>EN_VIAJE</th>
+    <th>NOMBRE</th>
+    <th>UNIDAD</th>
+    <th>KM</th>
+    <th>CARGA</th>
+    <th>OBSERVAC</th>
+    <th>BAND</th>
+    <th>ARQUEO_NETO</th>
+    <th>CALADO_MAX</th>
+    <th>CALADOR</th>
+    <th>SERN</th>
+    <th>TIPO_EVENTO</th>
+    <th>COMENTARIO</th>
+    <th>ID_VIAJE</th>
+    <th>ID_ETAPA</th>
+    <th>NRO_ETAPA</th>
+    <th>ID_EVENTO</th>
+    <th>REMOLCADA_POR</th>
+    <th>ORIGEN</th>
+    <th>DESTINO</th>
+  </tr>
+
+<% @listado.Envelope.Body.GetReportResponse.GetReportResult.diffgram.NewDataSet.Table.each do |posicion| %>
+  <tr>
+    <td><%= posicion.method("msdata:rowOrder").call %></td>
+    <td><%= posicion.FH_INFO %></td>
+    <td><%= posicion.HS_INFO %></td>
+    <td><%= posicion.PT_INFO %></td>
+    <td><%= posicion.MATRICULA %></td>
+    <td><%= posicion.SDIST %></td>
+    <td><%= posicion.NRO_OMI %></td>
+    <td><%= posicion.IDEN %></td>
+    <td><%= posicion.PT_ORIG %></td>
+    <td><%= posicion.PT_DESTINO %></td>
+    <td><%= posicion.TIPO_MOV %></td>
+    <td><%= posicion.PT_FINAL %></td>
+    <td><%= posicion.EN_VIAJE %></td>
+    <td><%= posicion.NOMBRE %></td>
+    <td><%= posicion.UNIDAD %></td>
+    <td><%= posicion.KM %></td>
+    <td><%= posicion.CARGA %></td>
+    <td><%= posicion.OBSERVAC %></td>
+    <td><%= posicion.BAND %></td>
+    <td><%= posicion.ARQUEO_NETO %></td>
+    <td><%= posicion.CALADO_MAX %></td>
+    <td><%= posicion.CALADOR %></td>
+    <td><%= posicion.SERN %></td>
+    <td><%= posicion.TIPO_EVENTO %></td>
+    <td><%= posicion.COMENTARIO %></td>
+    <td><%= posicion.ID_VIAJE %></td>
+    <td><%= posicion.ID_ETAPA %></td>
+    <td><%= posicion.NRO_ETAPA %></td>
+    <td><%= posicion.ID_EVENTO %></td>
+    <td><%= posicion.REMOLCADA_POR %></td>
+    <td><%= posicion.ORIGEN %></td>
+    <td><%= posicion.DESTINO %></td>
+  </tr>
+<% end %>
+
+
+</table>
