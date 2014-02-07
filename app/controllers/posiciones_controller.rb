@@ -28,7 +28,7 @@ class PosicionesController < ApplicationController
 
   def visualizar
     @posiciones = Posiciones.find(params[:id])
-    @listado = VisualizarService.new(@posiciones.listado).obtener_listado
+    @listado = @posiciones.obtener_listado
   end
 
 end
