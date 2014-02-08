@@ -28,7 +28,6 @@ class PosicionesController < ApplicationController
 
   def visualizar
     @posiciones = Posiciones.find(params[:id])
-    @listado = @posiciones.obtener_listado
   end
 
 end

@@ -151,5 +151,13 @@ describe "Posiciones" do
       end
     end
 
+    it "debe mostrar un mensaje indicando que no hay registros" do
+      xml = File.read(Rails.root.join("spec/support/posiciones_sin_registros.xml"))
+      @posiciones = Factory(:posiciones, :listado => xml)
+      visit posiciones_index_path
+      click_link "Visualizar"
+      expect(page.body).to have_content("No hay registros para mostrar")
+    end
+
   end
 end

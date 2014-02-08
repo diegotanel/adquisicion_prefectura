@@ -1,7 +1,6 @@
 <h1>Visualizar posiciones</h1>
 
-
-
+<% if @posiciones.registros? %>
 <table>
   <tr>
     <th>Orden</th>
@@ -38,7 +37,7 @@
     <th>DESTINO</th>
   </tr>
 
-<% @listado.Envelope.Body.GetReportResponse.GetReportResult.diffgram.NewDataSet.Table.each do |posicion| %>
+  <% @posiciones.obtener_listado.each do |posicion| %>
   <tr>
     <td><%= posicion.method("msdata:rowOrder").call %></td>
     <td><%= posicion.FH_INFO %></td>
@@ -73,7 +72,8 @@
     <td><%= posicion.ORIGEN %></td>
     <td><%= posicion.DESTINO %></td>
   </tr>
-<% end %>
-
-
+  <% end %>
 </table>
+<% else %>
+  <p>No hay registros para mostrar</p>
+<% end %>
