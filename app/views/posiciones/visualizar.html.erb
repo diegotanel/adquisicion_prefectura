@@ -37,41 +37,43 @@
     <th>DESTINO</th>
   </tr>
 
-  <% @posiciones.obtener_listado.each do |posicion| %>
-  <tr>
-    <td><%= posicion.method("msdata:rowOrder").call %></td>
-    <td><%= posicion.FH_INFO %></td>
-    <td><%= posicion.HS_INFO %></td>
-    <td><%= posicion.PT_INFO %></td>
-    <td><%= posicion.MATRICULA %></td>
-    <td><%= posicion.SDIST %></td>
-    <td><%= posicion.NRO_OMI %></td>
-    <td><%= posicion.IDEN %></td>
-    <td><%= posicion.PT_ORIG %></td>
-    <td><%= posicion.PT_DESTINO %></td>
-    <td><%= posicion.TIPO_MOV %></td>
-    <td><%= posicion.PT_FINAL %></td>
-    <td><%= posicion.EN_VIAJE %></td>
-    <td><%= posicion.NOMBRE %></td>
-    <td><%= posicion.UNIDAD %></td>
-    <td><%= posicion.KM %></td>
-    <td><%= posicion.CARGA %></td>
-    <td><%= posicion.OBSERVAC %></td>
-    <td><%= posicion.BAND %></td>
-    <td><%= posicion.ARQUEO_NETO %></td>
-    <td><%= posicion.CALADO_MAX %></td>
-    <td><%= posicion.CALADOR %></td>
-    <td><%= posicion.SERN %></td>
-    <td><%= posicion.TIPO_EVENTO %></td>
-    <td><%= posicion.COMENTARIO %></td>
-    <td><%= posicion.ID_VIAJE %></td>
-    <td><%= posicion.ID_ETAPA %></td>
-    <td><%= posicion.NRO_ETAPA %></td>
-    <td><%= posicion.ID_EVENTO %></td>
-    <td><%= posicion.REMOLCADA_POR %></td>
-    <td><%= posicion.ORIGEN %></td>
-    <td><%= posicion.DESTINO %></td>
-  </tr>
+  <% @posiciones.obtener_listado.in_groups_of(400,false).each do |grupo| %>
+    <% grupo.each do |posicion| %>
+    <tr>
+      <td><%= posicion.method("msdata:rowOrder").call %></td>
+      <td><%= posicion.FH_INFO %></td>
+      <td><%= posicion.HS_INFO %></td>
+      <td><%= posicion.PT_INFO %></td>
+      <td><%= posicion.MATRICULA %></td>
+      <td><%= posicion.SDIST %></td>
+      <td><%= posicion.NRO_OMI %></td>
+      <td><%= posicion.IDEN %></td>
+      <td><%= posicion.PT_ORIG %></td>
+      <td><%= posicion.PT_DESTINO %></td>
+      <td><%= posicion.TIPO_MOV %></td>
+      <td><%= posicion.PT_FINAL %></td>
+      <td><%= posicion.EN_VIAJE %></td>
+      <td><%= posicion.NOMBRE %></td>
+      <td><%= posicion.UNIDAD %></td>
+      <td><%= posicion.KM %></td>
+      <td><%= posicion.CARGA %></td>
+      <td><%= posicion.OBSERVAC %></td>
+      <td><%= posicion.BAND %></td>
+      <td><%= posicion.ARQUEO_NETO %></td>
+      <td><%= posicion.CALADO_MAX %></td>
+      <td><%= posicion.CALADOR %></td>
+      <td><%= posicion.SERN %></td>
+      <td><%= posicion.TIPO_EVENTO %></td>
+      <td><%= posicion.COMENTARIO %></td>
+      <td><%= posicion.ID_VIAJE %></td>
+      <td><%= posicion.ID_ETAPA %></td>
+      <td><%= posicion.NRO_ETAPA %></td>
+      <td><%= posicion.ID_EVENTO %></td>
+      <td><%= posicion.REMOLCADA_POR %></td>
+      <td><%= posicion.ORIGEN %></td>
+      <td><%= posicion.DESTINO %></td>
+    </tr>
+    <% end %>
   <% end %>
 </table>
 <% else %>
