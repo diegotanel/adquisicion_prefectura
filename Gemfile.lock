@@ -96,6 +96,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     multi_json (1.7.7)
+    newrelic_rpm (3.7.2.192)
     nokogiri (1.5.10)
     nori (1.1.5)
     pg (0.15.1)
@@ -216,6 +217,7 @@ DEPENDENCIES
   hirb-unicode
   htmlbeautifier
   jquery-rails
+  newrelic_rpm
   pg
   rails (= 3.2.8)
   rails-i18n
