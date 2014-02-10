@@ -37,8 +37,7 @@
     <th>DESTINO</th>
   </tr>
 
-  <% @posiciones.obtener_listado.in_groups_of(400,false).each do |grupo| %>
-    <% grupo.each do |posicion| %>
+  <% @listado.each do |posicion| %>
     <tr>
       <td><%= posicion.method("msdata:rowOrder").call %></td>
       <td><%= posicion.FH_INFO %></td>
@@ -73,9 +72,9 @@
       <td><%= posicion.ORIGEN %></td>
       <td><%= posicion.DESTINO %></td>
     </tr>
-    <% end %>
   <% end %>
 </table>
+<p> <%= will_paginate @listado %> </p>
 <% else %>
   <p>No hay registros para mostrar</p>
 <% end %>

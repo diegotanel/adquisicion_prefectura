@@ -28,6 +28,7 @@ class PosicionesController < ApplicationController
 
   def visualizar
     @posiciones = Posiciones.find(params[:id])
+    @listado = @posiciones.obtener_listado.paginate(:page => params[:page], :per_page => 300)
   end
 
 end

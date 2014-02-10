@@ -159,5 +159,21 @@ describe "Posiciones" do
       expect(page.body).to have_content("No hay registros para mostrar")
     end
 
+    describe "paginación" do
+      it "el reporte de posiciones debe tener la paginación" do
+        VCR.use_cassette "prefectura_15-09-13" do
+          #   xml = File.read(Rails.root.join("spec/support/posiciones_con_registros.xml"))
+          #   @posiciones = Factory(:posiciones, :listado => xml)
+          fecha = '15-09-13'
+          reportName = 'Hidrovia_PZRP'
+          page.driver.post '/posiciones/create', params = { :fecha => fecha, :reportName => reportName }
+          #visit visualizar_posiciones_path(@posiciones.id)
+          visit posiciones_index_path
+          click_link "Visualizar"
+          expect(page.body).to have_selector('div.pagination')
+        end
+      end
+    end
+
   end
 end

@@ -9,6 +9,13 @@ describe Posiciones do
     @listado[0].PT_INFO.should eq("DIAM")
   end
 
+  it "si no hay registros debe retornar un array vacio" do
+    xml = File.read(Rails.root.join("spec/support/posiciones_sin_registros.xml"))
+    @posiciones = Factory(:posiciones, :listado => xml)
+    @listado = @posiciones.obtener_listado
+    @listado.should == []
+  end
+
   describe "registros?" do
     it "si no hay registros, debe retornar un false" do
       xml = File.read(Rails.root.join("spec/support/posiciones_sin_registros.xml"))
