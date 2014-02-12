@@ -6,7 +6,7 @@ class PosicionesController < ApplicationController
   end
 
   def create
-    params[:fecha] = DateTime.now.strftime("%d-%m-%y")
+    params[:fecha] = Time.zone.now.strftime("%d-%m-%y")
     @consultar = ConsultaPrefectura.new(params).obtener_registros
     @pos = Posiciones.create(:fecha => params[:fecha], :listado => @consultar)
     respond_to do |format|
