@@ -16,8 +16,7 @@ gem 'foundation-rails'
 gem 'foundation_rails_helper'
 gem 'will_paginate', '~> 3.0'
 gem 'will-paginate-i18n'
-gem 'newrelic_rpm'
-
+gem 'rack-mini-profiler'
 
 group :development do
   gem 'htmlbeautifier'
