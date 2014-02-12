@@ -39,7 +39,7 @@
 
   <% @listado.each do |posicion| %>
     <tr>
-      <td><%= posicion["msdata:rowOrder"] %></td>
+      <td><%= posicion[:rowOrder] %></td>
       <td><%= posicion[:FH_INFO] %></td>
       <td><%= posicion[:HS_INFO] %></td>
       <td><%= posicion[:PT_INFO] %></td>
