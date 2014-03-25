@@ -177,5 +177,36 @@ describe "Posiciones" do
       end
     end
 
+    describe "filtro" do
+      it "debe mostrar los nombres de los buques", :js => true do
+        xml = File.read(Rails.root.join("spec/support/posiciones_con_registros.xml"))
+        @posiciones = Factory(:posiciones, :listado => xml)
+        visit visualizar_posiciones_path(@posiciones)
+        click_link "Buscar por buque"
+        select "DON KASBERGEN"
+      end
+
+      it "debe filtar el listado por el buque seleccionado", :js => true do
+        xml = File.read(Rails.root.join("spec/support/posiciones_con_registros.xml"))
+        @posiciones = Factory(:posiciones, :listado => xml)
+        visit visualizar_posiciones_path(@posiciones)
+        click_link "Buscar por buque"
+        find('#nombre_de_buques_index').find(:xpath, 'option["DON KASBERGEN"]').select_option
+        sleep 2
+        find("table").should have_content("DON KASBERGEN")
+        find("table").should_not have_content("GONZA")
+      end
+
+      it "debe eliminar el filtro", :js => true do
+        xml = File.read(Rails.root.join("spec/support/posiciones_con_registros.xml"))
+        @posiciones = Factory(:posiciones, :listado => xml)
+        visit visualizar_posiciones_path(@posiciones)
+        click_link "Buscar por buque"
+        click_link "Eliminar filtro"
+        find("table").should have_content("DON KASBERGEN")
+        find("table").should have_content("GONZA")
+      end
+    end
+
   end
 end

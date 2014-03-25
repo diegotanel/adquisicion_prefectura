@@ -31,4 +31,21 @@ class PosicionesController < ApplicationController
     @listado = @posiciones.obtener_listado.paginate(:page => params[:page], :per_page => 300)
   end
 
+  def obtener_nombre_de_buques
+    @posiciones = Posiciones.find(params[:id])
+    @nombre_de_buques = @posiciones.obtener_nombre_de_buques
+    respond_to do | format |
+      format.js { }
+    end
+  end
+
+  def filtrar_por_buque
+    @posiciones = Posiciones.find(params[:id])
+    @listado = @posiciones.obtener_listado_por_buque(params[:buque])
+    respond_to do | format |
+      #format.json { render json: @listado }
+      format.js {}
+    end
+  end
+
 end

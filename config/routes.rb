@@ -10,6 +10,8 @@ AdquisicionPrefectura::Application.routes.draw do
     member do
       get :descargar
       get :visualizar
+      get :obtener_nombre_de_buques
+      get :filtrar_por_buque
     end
     collection do
       delete :eliminar_multiple
