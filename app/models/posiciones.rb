@@ -33,17 +33,19 @@ class Posiciones < ActiveRecord::Base
   def obtener_nombre_de_buques
     ActiveSupport::XmlMini.backend = 'Nokogiri'
     doc = Nokogiri::XML(listado)
-    doc.search('//IDEN').map(&:text).uniq
+    doc.search('//IDEN').map {|n| n.text.strip }.uniq.sort
   end
 
   def obtener_listado_por_buque(buque)
     ActiveSupport::XmlMini.backend = 'Nokogiri'
     doc = Nokogiri::XML(listado)
     doc.search('Table').each { |nodo|
-      nodo.remove unless nodo.search('IDEN').text == buque
+      nodo.remove unless nodo.search('IDEN').text.strip == buque.strip
     }
     @pos = Hash.from_xml(doc.to_xml).with_indifferent_access
-    @pos[:Envelope][:Body][:GetReportResponse][:GetReportResult][:diffgram][:NewDataSet][:Table]
+    @posiciones = @pos[:Envelope][:Body][:GetReportResponse][:GetReportResult][:diffgram][:NewDataSet][:Table]
+    @coleccion = []
+    @posiciones.kind_of?(Array) ? @posiciones : @coleccion << @posiciones
   end
 
   private

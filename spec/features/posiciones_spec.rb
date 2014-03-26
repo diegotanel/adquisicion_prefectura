@@ -206,6 +206,8 @@ describe "Posiciones" do
         find("table").should have_content("DON KASBERGEN")
         find("table").should have_content("GONZA")
       end
+
+
     end
 
   end
