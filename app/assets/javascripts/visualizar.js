@@ -7,7 +7,7 @@ $(document).ready(function(){
    var nombre = $("#buques option:selected").text()
    var id = $("#posiciones_id").val()
    $.ajax({
-    url: "http://localhost:3000/posiciones/" + id + "/filtrar_por_buque.js",
+    url: "/posiciones/" + id + "/filtrar_por_buque.js",
     dataType: "json",
     type: "GET",
     data: { id: id, buque: nombre },
