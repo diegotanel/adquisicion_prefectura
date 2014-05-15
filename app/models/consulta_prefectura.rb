@@ -24,7 +24,7 @@ class ConsultaPrefectura
     end
   end
 
-  private
+  # private
 
   def obtener_posiciones_almacenada
     Posiciones.find_by_fecha(@fecha).listado
