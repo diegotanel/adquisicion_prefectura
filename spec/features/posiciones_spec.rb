@@ -117,6 +117,7 @@ describe "Posiciones" do
         visit posiciones_index_path
         expect(page.body).to have_content("15/09/2013")
         expect(page.body).to have_content(@fecha)
+        Timecop.return
         # @pos = Posiciones.first
         # expect(@pos.fecha).to eq("15-09-13")
         # expect(@pos.listado).to have_content("15/09/2013")
@@ -191,7 +192,7 @@ describe "Posiciones" do
         @posiciones = Factory(:posiciones, :listado => xml)
         visit visualizar_posiciones_path(@posiciones)
         click_link "Buscar por buque"
-        find('#nombre_de_buques_index').find(:xpath, 'option["DON KASBERGEN"]').select_option
+        select "DON KASBERGEN"
         sleep 2
         find("table").should have_content("DON KASBERGEN")
         find("table").should_not have_content("GONZA")
@@ -202,6 +203,9 @@ describe "Posiciones" do
         @posiciones = Factory(:posiciones, :listado => xml)
         visit visualizar_posiciones_path(@posiciones)
         click_link "Buscar por buque"
+        sleep 2
+        select "DON KASBERGEN"
+        sleep 2
         click_link "Eliminar filtro"
         find("table").should have_content("DON KASBERGEN")
         find("table").should have_content("GONZA")

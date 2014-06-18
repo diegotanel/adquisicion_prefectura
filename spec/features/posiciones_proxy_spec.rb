@@ -13,9 +13,10 @@ describe "PosicionesProxy" do
       VCR.use_cassette "prefectura_15-09-13" do
         fecha = '15-09-13'
         reportName = 'Hidrovia_PZRP'
+        Factory(:posiciones, :fecha => fecha, :listado => "14/09/2013")
         get(fecha, reportName)
         expect(page.status_code).to be(200)
-        expect(page.body).to have_content("15/09/2013")
+        expect(page.body).to have_content("14/09/2013")
       end
     end
   end
