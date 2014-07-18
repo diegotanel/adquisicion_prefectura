@@ -123,6 +123,23 @@ describe "Posiciones" do
         # expect(@pos.listado).to have_content("15/09/2013")
       end
     end
+
+    it "guardar el día anterior" do
+      VCR.use_cassette "prefectura_15-09-13", :allow_playback_repeats => true do
+        # DateTime.stub!(:now).and_return(DateTime.new(2013, 9, 15))
+        Timecop.freeze(Time.zone.local(2013,9,15,0,0))
+        @fecha = '15-09-13'
+        @reportName = 'Hidrovia_PZRP'
+        page.driver.post '/posiciones/create_dia_anterior', params = { :fecha => @fecha, :reportName => @reportName }
+        visit posiciones_index_path
+        expect(page.body).to have_content("15/09/2013")
+        expect(page.body).to have_content('14-09-13')
+        Timecop.return
+        # @pos = Posiciones.first
+        # expect(@pos.fecha).to eq("15-09-13")
+        # expect(@pos.listado).to have_content("15/09/2013")
+      end
+    end
   end
 
   describe "visualización de posiciones" do

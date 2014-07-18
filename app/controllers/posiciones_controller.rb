@@ -16,6 +16,17 @@ class PosicionesController < ApplicationController
     end
   end
 
+  def create_dia_anterior
+    params[:fecha] = Time.zone.now.to_date.yesterday.strftime("%d-%m-%y")
+    @consultar = ConsultaPrefectura.new(params).obtener_registros
+    @pos = Posiciones.create(:fecha => params[:fecha], :listado => @consultar)
+    respond_to do |format|
+      # format.html # index.html.erb
+      # format.xml  { render xml: @pos}
+      # format.json { render json: @pos }
+    end
+  end
+
   def descargar
     @posiciones = Posiciones.find(params[:id])
     send_data @posiciones.listado, :filename => 'posiciones.xml', :type=>"application/xml", :disposition => 'attachment'

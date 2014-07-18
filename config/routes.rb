@@ -3,6 +3,7 @@ AdquisicionPrefectura::Application.routes.draw do
   # get "posiciones_proxy/index", :defaults => {:format => :xml}
 
   post "posiciones/create"
+  post "posiciones/create_dia_anterior"
 
   resources :posiciones_proxy, :defaults => {:format => :xml}, :only => :index
 
@@ -12,6 +13,7 @@ AdquisicionPrefectura::Application.routes.draw do
       get :visualizar
       get :obtener_nombre_de_buques
       get :filtrar_por_buque
+
     end
     collection do
       delete :eliminar_multiple
